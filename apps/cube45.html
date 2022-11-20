@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="../theme.css" rel="stylesheet" type="text/css" />
+		<link href="../normalize.css" rel="stylesheet" type="text/css" />
+
+		<style>
+			:root {
+				/**
+				 * CONSTANTS
+				 */
+				--FULL_ANGLE: 90;
+
+				/**
+				 * DYNAMIC
+				 */
+				--cube-size: 200px;
+				--border-size: 1px;
+
+				--perspective-x: 45;
+				--perspective-y: 45;
+
+				--cube-height: var(--cube-size);
+				--cube-width: var(--cube-size);
+
+				/**
+				 * CALCULATED
+				 */
+				--centerX: calc(50% - calc(var(--cube-width) / 2));
+				--centerY: calc(50% - calc(var(--cube-height) / 2));
+
+
+				--perspective-x-percentage: calc(1% * var(--perspective-x));
+				--perspective-y-percentage: calc(1% * var(--perspective-y));
+				--perspective-x-deg: calc(1deg * var(--perspective-x));
+				--perspective-y-deg: calc(1deg * var(--perspective-y));
+			}
+			.app {
+				width: 100%;
+				height: 100%;
+			}
+
+			.front,
+			.bottom,
+			.top,
+			.left,
+			.right,
+			.back {
+				border: var(--border-size) solid var(--primary-color-light);
+				background-color: var(--primary-color);
+				opacity: 0.5;
+				position: absolute;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+			}
+
+			.front {
+				width: var(--cube-width);
+				height: var(--cube-height);
+				top: var(--centerY);
+				left: var(--centerX);
+			}
+
+			.bottom {
+				width: var(--cube-width);
+				height: calc(var(--cube-height) / (var(--FULL_ANGLE) / var(--perspective-y)));
+				top: calc(var(--centerY) - var(--border-size));
+				left: var(--centerX);
+				transform:
+					translate(25%, calc(100% + var(--border-size)))
+					skewX(calc(-1 * var(--perspective-x-deg)))
+				;
+			}
+
+			.top {
+				width: var(--cube-width);
+				height: calc(var(--cube-height) / (var(--FULL_ANGLE) / var(--perspective-y)));
+				top: var(--centerY);
+				left: var(--centerX);
+				transform:
+					translate(25%, calc(-100% + var(--border-size)))
+					skewX(calc(-1 * var(--perspective-x-deg)))
+				;
+			}
+
+			.left {
+				width: calc(var(--cube-width) / (var(--FULL_ANGLE) / var(--perspective-x)));
+				height: var(--cube-height);
+				top: calc(var(--centerY) + var(--border-size));
+				left: var(--centerX);
+				transform:
+					translate(0, -25%)
+					skewY(calc(-1 * var(--perspective-y-deg)))
+				;
+			}
+
+			.right {
+				width: calc(var(--cube-width) / (var(--FULL_ANGLE) / var(--perspective-x)));
+				height: var(--cube-height);
+				top: calc(var(--centerY) + var(--border-size));
+				left: var(--centerX);
+				transform:
+					translate(200%, -25%)
+					skewY(calc(-1 * var(--perspective-y-deg)))
+				;
+			}
+
+			.back {
+				--offset-x-divider: calc(var(--FULL_ANGLE) / var(--perspective-x));
+				--offset-x: calc(var(--cube-width) / var(--offset-x-divider));
+				--offset-y-divider: calc(var(--FULL_ANGLE) / var(--perspective-y));
+				--offset-y: calc(var(--cube-width) / var(--offset-y-divider));
+				width: var(--cube-width);
+				height: var(--cube-height);
+				top: calc(var(--centerY) + var(--border-size));
+				left: var(--centerX);
+				transform: 
+					translate(var(--offset-x), calc(-1 * var(--offset-y)))
+				;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="app">
+			<div class="front"></div>
+			<div class="bottom"></div>
+			<div class="top"></div>
+			<div class="left"></div>
+			<div class="right"></div>
+			<div class="back"></div>
+		</div>
+		<script>
+			document.addEventListener("DOMContentLoaded", run);
+			function run() {
+				
+			}
+		</script>
+	</body>
+</html>

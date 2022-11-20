@@ -1,0 +1,26 @@
+html > body > .main {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+html > body > .main iframe {
+	border: none;
+	color: var(--primary-color);
+	width: 100%;
+	height: calc(100% - 4px);
+}
+
+html > body > .main > .main-page,
+html > body > .main > .main-sidebar {
+	height: 100%;
+}
+
+html > body > .main > .main-page {
+	width: calc(100% - var(--sidebar-width));
+	border-right: 1px solid var(--primary-color);
+}
+
+html > body > .main > .main-sidebar {
+	width: var(--sidebar-width);
+}

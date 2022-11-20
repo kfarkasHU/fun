@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="../theme.css" rel="stylesheet" type="text/css" />
+		<link href="../normalize.css" rel="stylesheet" type="text/css" />
+		<link href="./sidebar.css" rel="stylesheet" type="text/css" />
+
+		<script src="../apps.js"></script>
+	</head>
+	<body>
+		<script>
+			const APPS_LIST_ID = "list";
+			document.addEventListener("DOMContentLoaded", () => {
+				const list = document.getElementById(APPS_LIST_ID);
+				const tags = APPS
+					.sort((l, r) => {
+						if(l[0] < r[0]) return -1;
+						if(l[0] > r[0]) return 1;
+						return 0;
+					})
+					.map(m => `<li class="sidebar_main-items-container__item" onclick="onSelect('${m[1]}')">${m[0]}</li>`)
+					.join("\n");
+				list.innerHTML = tags;
+			});
+
+			function onSelect(url) {
+				window.parent.postMessage([
+					"appSelectionChange",
+					url
+				], '*');
+			}
+		</script>
+		<div class="sidebar_main">
+			<div class="sidebar_main-items">
+				<ul class="sidebar_main-items-container" id="list">
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

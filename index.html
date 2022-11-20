@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="./theme.css" rel="stylesheet" type="text/css" />
+		<link href="./normalize.css" rel="stylesheet" type="text/css" />
+		<link href="./index.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<section class="main">
+			<div class="main-page">
+				<iframe id="page" scrolling="no">
+				</iframe>
+			</div>
+			<div class="main-sidebar">
+				<iframe id="sidebar" scrolling="no">
+				</iframe>
+			</div>
+		</section>
+
+		<script>
+			const PAGE_ID = "page";
+			const SIDEBAR_ID = "sidebar";
+
+			document.addEventListener("DOMContentLoaded", run);
+			function run() {
+				_attachSidebar();
+				_listenAppChange();
+			}
+
+			function _attachSidebar() {
+				const sidebar = document.getElementById(SIDEBAR_ID);
+				sidebar.src = "./views/sidebar.html"
+			}
+
+			function _listenAppChange() {
+				window.addEventListener("message", ({ data }) => {
+					if(data[0] === "appSelectionChange") {
+						const file = data[1];
+						const url = `./apps/${file}`;
+						const page = document.getElementById(PAGE_ID);
+						page.src = url;
+					}
+				}, false);
+			}
+		</script>
+	</body>
+</html>

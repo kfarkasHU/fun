@@ -1,0 +1,13 @@
+:root {
+	--primary-color: #008080;
+	--primary-color-light: #40ffff;
+	--background-color: black;
+
+	/* layout */
+	--sidebar-width: 300px;
+}
+
+html,
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
