@@ -159,8 +159,40 @@
 			}
 			function _drawNaive(x1, y1, x2, y2) {
 				const COLOR = "green";
-				__drawPixel(x1, y1, COLOR);
-				__drawPixel(x2, y2, COLOR);
+
+				/** This algorythm requires ordered inputs */
+				if (x1 > x2) {
+					const tempx = x1;
+					const tempy = y1;
+					x1 = x2;
+					y1 = y2;
+					x2 = tempx;
+					y2 = tempy;
+				}
+
+				const dx = x2 - x1;
+				const dy = y2 - y1;
+				for (let x = x1; x < x2 + 1; x++) {
+					const y = y1 + dy * (x - x1) / dx;
+					__drawPixel(x, y, COLOR);
+				}
+
+				/* Monkey patch to avoid the DIV0 issues */
+				if (dx === 0) {
+					/* Order by y */
+					if (y1 > y2) {
+						const tempx = x1;
+						const tempy = y1;
+						x1 = x2;
+						y1 = y2;
+						x2 = tempx;
+						y2 = tempy;
+					}
+					let y = y1;
+					while (y < y2 + 1) {
+						__drawPixel(x1, y++, COLOR);
+					}
+				}
 			}
 			function _drawDDA(x1, y1, x2, y2) {
 				const COLOR = "blue";
