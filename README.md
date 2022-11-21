@@ -6,4 +6,5 @@ Build status: ![deployment status](https://github.com/kfarkasHU/fun/actions/work
 * Cube (45deg static perspective)
 * Cube skeleton (45deg static perspective)
 * Triangle (2D with DIV)
-
+* Line (Bresenham)
+* Line (Naive)
