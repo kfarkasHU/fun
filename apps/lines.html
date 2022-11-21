@@ -196,8 +196,43 @@
 			}
 			function _drawDDA(x1, y1, x2, y2) {
 				const COLOR = "blue";
-				__drawPixel(x1, y1, COLOR);
-				__drawPixel(x2, y2, COLOR);
+				console.log(x1, y1, x2, y2);
+				let dx = x2 - x1;
+				let dy = y2 - y1;
+				let step = 0;
+				if (Math.abs(dy) < Math.abs(dx)) {
+					step = Math.abs(dy);
+				} else {
+					step = Math.abs(dx);
+				}
+				dx = dx / step;
+				dy = dy / step;
+				x = x1;
+				y = y1;
+				for (let i = 0; i < step + 1; i++) {
+					__drawPixel(x, y, COLOR);
+					x = x + dx;
+					y = y + dy;
+				}
+
+				/* Monkey patch if any of the deltas is 0 */
+				if (step !== 0) {
+					return;
+				}
+				if (dx === 0 || !isFinite(dx)) {
+					const biggerY = y2 > y1 ? y2 : y1;
+					const smallerY = y2 > y1 ? y1 : y2;
+					for (let y = smallerY; y < biggerY + 1; y++) {
+						__drawPixel(x1, y, COLOR);
+					}
+				}
+				if (dy === 0 || !isFinite(dy)) {
+					const biggerX = x2 > x1 ? x2 : x1;
+					const smallerX = x2 > x1 ? x1 : x2;
+					for (let x = smallerX; x < biggerX + 1; x++) {
+						__drawPixel(x, y1, COLOR);
+					}
+				}
 			}
 			function _drawXialoinWu(x1, y1, x2, y2) {
 				const COLOR = "yellow";
